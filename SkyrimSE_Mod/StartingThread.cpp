@@ -16,6 +16,7 @@ LRESULT WINAPI StartingThread(HMODULE hModule) {
   DirectXHook::EnableDirectXHooks();
 
   DirectInputHook::Initialize();
+  DirectInputHook::EnableHooks();
 
   CheatBase::Initialize();
 
