@@ -16,6 +16,12 @@
 
 #include <d3d11.h>
 
+#include <dinput.h>
+
+#include "ImGui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+
 #include "Vector.h"
 
 #include "MinHook.h"
@@ -35,5 +41,7 @@
 #include "CheatBase.h"
 
 #include "DirectXHook.h"
+
+#include "DirectInputHook.h"
 
 #endif //PCH_H

@@ -34,6 +34,12 @@
     <Filter Include="DirectX Hook">
       <UniqueIdentifier>{5998d47e-8930-4fa7-9a68-a4dec5643a8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{5beda098-6f7f-49e6-964f-59c7d4435d63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectInputHook">
+      <UniqueIdentifier>{75ed9cfa-5bc0-4ac4-bb8e-05e6438d1e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -72,6 +78,33 @@
     <ClInclude Include="DirectXHook.h">
       <Filter>DirectX Hook</Filter>
     </ClInclude>
+    <ClInclude Include="Deps\ImGui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Deps\ImGui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Deps\ImGui\imgui_impl_dx11.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Deps\ImGui\imgui_impl_win32.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Deps\ImGui\imgui_internal.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Deps\ImGui\imstb_rectpack.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Deps\ImGui\imstb_textedit.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Deps\ImGui\imstb_truetype.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectInputHook.h">
+      <Filter>DirectInputHook</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -100,6 +133,30 @@
     </ClCompile>
     <ClCompile Include="DirectXHook.cpp">
       <Filter>DirectX Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_draw.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_impl_dx11.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_impl_win32.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_tables.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_widgets.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectInputHook.cpp">
+      <Filter>DirectInputHook</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -79,14 +79,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;$(ProjectDir)Deps\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(ProjectDir)\Deps\Minhook\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;Dinput8.lib;Dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,7 +100,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;$(ProjectDir)Deps\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -109,7 +109,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(ProjectDir)\Deps\Minhook\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;Dinput8.lib;Dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -121,14 +121,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;$(ProjectDir)Deps\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(ProjectDir)\Deps\Minhook\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;Dinput8.lib;Dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,7 +142,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Deps\Minhook\include;$(ProjectDir)Deps\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -151,12 +151,21 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>$(ProjectDir)\Deps\Minhook\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libMinHook.x64.lib;D3D11.lib;Dinput8.lib;Dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CheatBase.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="Deps\ImGui\imconfig.h" />
+    <ClInclude Include="Deps\ImGui\imgui.h" />
+    <ClInclude Include="Deps\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="Deps\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="Deps\ImGui\imgui_internal.h" />
+    <ClInclude Include="Deps\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Deps\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
+    <ClInclude Include="DirectInputHook.h" />
     <ClInclude Include="DirectXHook.h" />
     <ClInclude Include="GameFunctionHooks.h" />
     <ClInclude Include="Globals.h" />
@@ -176,6 +185,49 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_impl_dx11.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_impl_win32.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Deps\ImGui\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="DirectInputHook.cpp" />
     <ClCompile Include="DirectXHook.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GameFunctionHooks.cpp" />

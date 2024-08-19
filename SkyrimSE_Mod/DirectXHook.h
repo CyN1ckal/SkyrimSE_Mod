@@ -4,10 +4,12 @@ typedef long(__stdcall *Present_Template)(IDXGISwapChain *, UINT, UINT);
 
 class DirectXHook {
 public:
-  static inline IDXGISwapChain* SwapChain;
-  static inline ID3D11Device *Device;
+  static inline ID3D11Device *D3D11_Device;
+  static inline ID3D11DeviceContext *D3D11_DeviceContext;
+  static inline ID3D11RenderTargetView *MainRenderTargetView;
 
   static inline HWND SkyrimSE_hWnd;
+  static inline HWND SwapChainOutputhWnd;
   static inline DWORD SkyrimSE_ProcessId;
 
   static inline uintptr_t PresentFunctionAddress;
@@ -21,6 +23,13 @@ public:
   static long __stdcall Present_Hooked(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags);
 
   static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam);
+
+  static inline bool ImGuiInit = false;
+
+  static LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam,
+                            LPARAM lParam);
+
+  static inline WNDPROC WndProc_Original;
 
 private:
 };
