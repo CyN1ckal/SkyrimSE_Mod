@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="CyNickal Lib">
+      <UniqueIdentifier>{ce9a5719-414e-44eb-9bdc-992b64b1fc0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CyNickal Lib\Console">
+      <UniqueIdentifier>{aef39e23-dc71-4be9-bbae-2b99182652a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CyNickal Lib\PatternScan">
+      <UniqueIdentifier>{1392752f-cac8-4962-a637-03d9e38666e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFunctionHooks">
+      <UniqueIdentifier>{bd700825-7658-4b4d-95a7-0a51b62c84a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CheatBase">
+      <UniqueIdentifier>{68127f11-8d4d-4dfb-9c5a-ce76c7dd3dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CyNickal Lib\PointerDeref">
+      <UniqueIdentifier>{16d52d46-c91c-495e-974b-626dbd4c79d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX Hook">
+      <UniqueIdentifier>{5998d47e-8930-4fa7-9a68-a4dec5643a8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>CyNickal Lib\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="PatternScan.h">
+      <Filter>CyNickal Lib\PatternScan</Filter>
+    </ClInclude>
+    <ClInclude Include="StartingThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Signatures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFunctionHooks.h">
+      <Filter>GameFunctionHooks</Filter>
+    </ClInclude>
+    <ClInclude Include="CheatBase.h">
+      <Filter>CheatBase</Filter>
+    </ClInclude>
+    <ClInclude Include="PointerDeref.h">
+      <Filter>CyNickal Lib\PointerDeref</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXHook.h">
+      <Filter>DirectX Hook</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>CyNickal Lib\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="PatternScan.cpp">
+      <Filter>CyNickal Lib\PatternScan</Filter>
+    </ClCompile>
+    <ClCompile Include="StartingThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFunctionHooks.cpp">
+      <Filter>GameFunctionHooks</Filter>
+    </ClCompile>
+    <ClCompile Include="CheatBase.cpp">
+      <Filter>CheatBase</Filter>
+    </ClCompile>
+    <ClCompile Include="PointerDeref.cpp">
+      <Filter>CyNickal Lib\PointerDeref</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXHook.cpp">
+      <Filter>DirectX Hook</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
