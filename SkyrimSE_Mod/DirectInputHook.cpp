@@ -18,10 +18,12 @@ bool DirectInputHook::Initialize() {
     return -1;
   }
 
+  GetDeviceStateFunctionAddress =
+      *(uintptr_t *)(*(uintptr_t *)lpdiKeyboard + (9 * sizeof(uintptr_t)));
+
   GetDeviceDataFunctionAddress =
       *(uintptr_t *)(*(uintptr_t *)lpdiKeyboard + (10 * sizeof(uintptr_t)));
-  printf("IDirectInputDevice8_GetDeviceData: %llx\n",
-         GetDeviceDataFunctionAddress);
+
 
   return 1;
 }
@@ -35,24 +37,18 @@ HRESULT WINAPI DirectInputHook::GetDeviceData_Hooked(
       GetDeviceData_Original(Device, cbObjectData, rgdod, pdwInOut, dwFlags);
 
   if (ret == DI_OK) {
+    // printf("Length of Queue: %d\n", *pdwInOut);
+
     for (int i = 0; i < *pdwInOut; i++) {
       if (LOBYTE(rgdod[i].dwData) > 0) {
-        switch (rgdod[i].dwOfs) {
-        case DIK_W:
-          printf("[W]");
-          break;
-        case DIK_S:
-          printf("[S]");
-          break;
-        case DIK_A:
-          printf("[A]");
-          break;
-        case DIK_D:
-          printf("[D]");
-          break;
-        }
+        printf("%X ", rgdod[i].dwOfs);
       }
     }
+  }
+
+  if (BlockKeyboard) {
+    *pdwInOut = 0;
+    return DI_OK;
   }
 
   return ret;

@@ -11,19 +11,29 @@ LRESULT WINAPI StartingThread(HMODULE hModule) {
 
   MH_Initialize();
 
+  CheatBase::Initialize();
+
+   MyImGui::Initialize();
+
   DirectXHook::Initialize();
   DirectXHook::GetPresentPointer();
   DirectXHook::EnableDirectXHooks();
 
-  DirectInputHook::Initialize();
-  DirectInputHook::EnableHooks();
-
-  CheatBase::Initialize();
+  // DirectInputHook::Initialize();
+  // DirectInputHook::EnableHooks();
 
   GameFunctionHooks::Initialize();
   GameFunctionHooks::EnableGameFunctionHooks();
 
   while (!GetAsyncKeyState(VK_END)) {
+
+    if (GetAsyncKeyState(VK_DELETE) & 1) {
+      DirectInputHook::BlockKeyboard = !DirectInputHook::BlockKeyboard;
+    }
+    if (GetAsyncKeyState(VK_INSERT) & 1) {
+      MyImGui::ToggleMasterImGuiRenderer();
+    }
+
     Sleep(100);
   }
 
@@ -31,8 +41,8 @@ LRESULT WINAPI StartingThread(HMODULE hModule) {
   printf("[-] Exiting.\n");
   Console::CustomColor(ConsoleColors::white);
 
-  SetWindowLongPtr(DirectXHook::SwapChainOutputhWnd, GWLP_WNDPROC,
-                   (LONG_PTR)DirectXHook::WndProc_Original);
+  SetWindowLongPtr(DirectXHook::SkyrimSE_hWnd, GWLP_WNDPROC,
+                   (LONG_PTR)DirectXHook::SKSE_WndProc_Original);
 
   MH_Uninitialize();
 

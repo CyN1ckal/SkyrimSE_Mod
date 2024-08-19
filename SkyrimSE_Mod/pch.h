@@ -44,4 +44,6 @@
 
 #include "DirectInputHook.h"
 
+#include "MyImGui.h"
+
 #endif //PCH_H

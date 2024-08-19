@@ -40,6 +40,9 @@
     <Filter Include="DirectInputHook">
       <UniqueIdentifier>{75ed9cfa-5bc0-4ac4-bb8e-05e6438d1e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyImGui">
+      <UniqueIdentifier>{f65cb012-6dc9-4f72-a193-6b75bbe2fb60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="DirectInputHook.h">
       <Filter>DirectInputHook</Filter>
     </ClInclude>
+    <ClInclude Include="MyImGui.h">
+      <Filter>MyImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -157,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="DirectInputHook.cpp">
       <Filter>DirectInputHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MyImGui.cpp">
+      <Filter>MyImGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -169,6 +169,7 @@
     <ClInclude Include="DirectXHook.h" />
     <ClInclude Include="GameFunctionHooks.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="MyImGui.h" />
     <ClInclude Include="PatternScan.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PointerDeref.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="DirectXHook.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GameFunctionHooks.cpp" />
+    <ClCompile Include="MyImGui.cpp" />
     <ClCompile Include="PatternScan.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>

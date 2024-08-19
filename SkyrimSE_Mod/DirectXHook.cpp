@@ -2,19 +2,46 @@
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg,
                                               WPARAM wParam, LPARAM lParam);
-LRESULT __stdcall DirectXHook::WndProc(const HWND hWnd, UINT uMsg,
-                                       WPARAM wParam, LPARAM lParam) {
+LRESULT __stdcall DirectXHook::SKSE_WndProc(const HWND hWnd, UINT uMsg,
+                                            WPARAM wParam, LPARAM lParam) {
+  // Reminder, I need to set the MouseHandleToggle if I want messages to come
+  // here...
+
+  if (true && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+    return true;
+
+  return CallWindowProc(SKSE_WndProc_Original, hWnd, uMsg, wParam, lParam);
+}
+
+LRESULT __stdcall DirectXHook::FullPath_WndProc(const HWND hWnd, UINT uMsg,
+                                                WPARAM wParam, LPARAM lParam) {
 
   return true;
   // return CallWindowProc(WndProc_Original, hWnd, uMsg, wParam, lParam);
 }
 
 BOOL DirectXHook::EnumWindowsProc(HWND hWnd, LPARAM lParam) {
+
   DWORD CurrentHWNDProcID;
   GetWindowThreadProcessId(hWnd, &CurrentHWNDProcID);
-  if (CurrentHWNDProcID == SkyrimSE_ProcessId) {
+
+  if (CurrentHWNDProcID != SkyrimSE_ProcessId)
+    return 1;
+
+  std::wstring title(GetWindowTextLength(hWnd) + 1, L'\0');
+  GetWindowTextW(hWnd, &title[0], title.size());
+
+  std::wstring SKSE_Title = L"Skyrim Special Edition";
+
+  int ReturnValue = wcscmp(title.c_str(), SKSE_Title.c_str());
+
+  if (!ReturnValue) {
     SkyrimSE_hWnd = hWnd;
-    return 0;
+
+    SKSE_WndProc_Original = (WNDPROC)SetWindowLongPtr(
+        SkyrimSE_hWnd, GWLP_WNDPROC, (LONG_PTR)SKSE_WndProc);
+
+    return 1;
   }
 
   return 1;
@@ -69,7 +96,6 @@ Present_Template Present_Original = nullptr;
 long __stdcall DirectXHook::Present_Hooked(IDXGISwapChain *SwapChain,
                                            UINT SyncInterval, UINT Flags) {
   if (!ImGuiInit) {
-
     if (SUCCEEDED(SwapChain->GetDevice(__uuidof(ID3D11Device),
                                        (void **)&D3D11_Device))) {
       D3D11_Device->GetImmediateContext(&D3D11_DeviceContext);
@@ -79,13 +105,6 @@ long __stdcall DirectXHook::Present_Hooked(IDXGISwapChain *SwapChain,
       D3D11_Device->CreateRenderTargetView(pBackBuffer, NULL,
                                            &MainRenderTargetView);
       pBackBuffer->Release();
-
-      DXGI_SWAP_CHAIN_DESC sd;
-      SwapChain->GetDesc(&sd);
-      SwapChainOutputhWnd = sd.OutputWindow;
-
-      WndProc_Original = (WNDPROC)SetWindowLongPtr(
-          SwapChainOutputhWnd, GWLP_WNDPROC, (LONG_PTR)WndProc);
 
       ImGui::CreateContext();
       ImGuiIO &io = ImGui::GetIO();
@@ -99,18 +118,11 @@ long __stdcall DirectXHook::Present_Hooked(IDXGISwapChain *SwapChain,
     }
   }
 
-  //ImGui_ImplDX11_NewFrame();
-  //ImGui_ImplWin32_NewFrame();
+  MyImGui::OnFrame();
 
-  //ImGui::NewFrame();
+  D3D11_DeviceContext->OMSetRenderTargets(1, &MainRenderTargetView, NULL);
 
-  //ImGui::ShowDemoWindow();
-
-  //ImGui::EndFrame();
-  //ImGui::Render();
-
-  //D3D11_DeviceContext->OMSetRenderTargets(1, &MainRenderTargetView, NULL);
-  //ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+  ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
   return Present_Original(SwapChain, SyncInterval, Flags);
 }

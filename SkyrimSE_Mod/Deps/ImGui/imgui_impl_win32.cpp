@@ -584,7 +584,7 @@ static ImGuiMouseSource GetMouseSourceFromMessageExtraInfo()
 
 IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    // Most backends don't have silent checks like this one, but we need it because WndProc are called early in CreateWindow().
+    // Most backends don't have silent checks like this one, but we need it because SKSE_WndProc are called early in CreateWindow().
     // We silently allow both context or just only backend data to be nullptr.
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
     if (bd == nullptr)
