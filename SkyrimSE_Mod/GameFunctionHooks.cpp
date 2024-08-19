@@ -35,12 +35,12 @@ void __fastcall UpdateEntityPosition_Hooked(__int64 Entity,
 UpdateCharacterPosition_Template UpdateCharacterPosition_Original = nullptr;
 char __fastcall UpdateCharacterPosition_Hooked(Character *CharacterArg,
                                                Vector3 NewPosition) {
-  //if (!strcmp("CyNickal", (char *)CharacterArg->UnknownPtr1->pName)) {
-  //  return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
-  //}
-  //NewPosition.x = 0;
-  //NewPosition.y = 0;
-  //NewPosition.z = 0;
+  // if (!strcmp("CyNickal", (char *)CharacterArg->UnknownPtr1->pName)) {
+  //   return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
+  // }
+  // NewPosition.x = 0;
+  // NewPosition.y = 0;
+  // NewPosition.z = 0;
   return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
 }
 
@@ -55,6 +55,10 @@ bool GameFunctionHooks::Initialize() {
       PatternScan::Internal::PatternScanModule_ComboPattern(
           "SkyrimSE.exe", Signatures::UpdateCharacterPositionFunctionSignature,
           Signatures::UpdateCharacterPositionFunctionSignatureLength);
+
+  Console::CustomColor(ConsoleColors::darkGreen);
+  printf("[+] GameFunctionHooks Initialized.\n");
+  Console::CustomColor(ConsoleColors::white);
 
   return 1;
 }
@@ -87,7 +91,7 @@ bool GameFunctionHooks::EnableGameFunctionHooks() {
   }
 
   Console::CustomColor(ConsoleColors::darkGreen);
-  printf("[+] All Game Function Hooks Created.\n");
+  printf("[+] All Game Function Hooks Enabled.\n");
   Console::CustomColor(ConsoleColors::white);
 
   return 1;

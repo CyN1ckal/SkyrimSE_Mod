@@ -10,5 +10,7 @@ public:
 
   inline static bool MasterImGuiToggle = false;
 
+  static bool RenderWaterMark();
+
 private:
 };
