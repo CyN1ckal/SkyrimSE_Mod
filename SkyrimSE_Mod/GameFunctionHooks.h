@@ -1,10 +1,10 @@
 #pragma once
 
 typedef void(__fastcall *UpdateEntityPosition_Template)(
-    __int64 LocalPlayer, UpdateEntityPositionArg arg);
+    Entity *Entity, UpdateEntityPositionArg arg);
 
 typedef char(__fastcall *UpdateCharacterPosition_Template)(
-    Character* CharacterArg, Vector3 NewPosition);
+    Character *CharacterArg, Vector3 NewPosition);
 
 class GameFunctionHooks {
 public:

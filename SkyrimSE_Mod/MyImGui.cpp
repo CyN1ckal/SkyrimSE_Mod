@@ -22,6 +22,11 @@ bool MyImGui::OnFrame() {
 
   if (MasterImGuiToggle) {
     ImGui::ShowDemoWindow();
+
+    ImGui::Begin("Exploits");
+    ImGui::Checkbox("Teleport All To Me",
+                    &CheatBase::TeleportAllEntitiesToPlayer);
+    ImGui::End();
   }
 
   ImGui::EndFrame();
@@ -44,8 +49,9 @@ bool MyImGui::ToggleMasterImGuiRenderer() {
 bool MyImGui::RenderWaterMark() {
   ImGui::SetNextWindowPos({0, 0});
   ImGuiWindowFlags window_flags =
-      ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-  ImGui::Begin("Watermark",NULL,window_flags);
+      ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar |
+      ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+  ImGui::Begin("Watermark", NULL, window_flags);
   ImGui::Text("Skyrim Special Edition: Modded");
   ImGui::End();
   return 1;

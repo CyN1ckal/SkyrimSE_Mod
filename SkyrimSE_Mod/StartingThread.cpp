@@ -13,7 +13,7 @@ LRESULT WINAPI StartingThread(HMODULE hModule) {
 
   CheatBase::Initialize();
 
-   MyImGui::Initialize();
+  MyImGui::Initialize();
 
   DirectXHook::Initialize();
   DirectXHook::GetPresentPointer();

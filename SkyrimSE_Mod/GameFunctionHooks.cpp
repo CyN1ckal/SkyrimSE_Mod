@@ -4,12 +4,19 @@
 #include "GameFunctionHooks.h"
 
 UpdateEntityPosition_Template ChangePlayerPosition_Original = nullptr;
-void __fastcall UpdateEntityPosition_Hooked(__int64 Entity,
+void __fastcall UpdateEntityPosition_Hooked(Entity *Entity,
                                             UpdateEntityPositionArg arg) {
 
-  if (Entity != CheatBase::LocalPlayerAddress)
+  if (!CheatBase::LocalEntity) {
+    CheatBase::InitializeLocalEntity();
     return ChangePlayerPosition_Original(Entity, arg);
+  }
 
+  //if (Entity != CheatBase::LocalEntity) {
+  //  return ChangePlayerPosition_Original(Entity, arg);
+  //}
+
+  // Ghetto FlyHack
   if (GetAsyncKeyState(VK_NUMPAD5)) {
     arg.Position.x += 2;
   }
@@ -35,12 +42,14 @@ void __fastcall UpdateEntityPosition_Hooked(__int64 Entity,
 UpdateCharacterPosition_Template UpdateCharacterPosition_Original = nullptr;
 char __fastcall UpdateCharacterPosition_Hooked(Character *CharacterArg,
                                                Vector3 NewPosition) {
-  // if (!strcmp("CyNickal", (char *)CharacterArg->UnknownPtr1->pName)) {
-  //   return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
-  // }
-  // NewPosition.x = 0;
-  // NewPosition.y = 0;
-  // NewPosition.z = 0;
+  if (CheatBase::TeleportAllEntitiesToPlayer) {
+    if (CharacterArg != CheatBase::LocalCharacter) {
+      NewPosition.x = CheatBase::LocalCharacter->Position.x;
+      NewPosition.y = CheatBase::LocalCharacter->Position.y;
+      NewPosition.z = CheatBase::LocalCharacter->Position.z + 1000;
+    }
+  }
+
   return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
 }
 
