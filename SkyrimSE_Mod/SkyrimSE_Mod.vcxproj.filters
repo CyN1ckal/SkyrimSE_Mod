@@ -216,4 +216,7 @@
       <Filter>DirectX Hook\Version Check</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="TODO.text" />
+  </ItemGroup>
 </Project>
