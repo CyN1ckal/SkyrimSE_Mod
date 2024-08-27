@@ -7,7 +7,7 @@ bool VersionCheckClass::Initialize() {
 
   HMODULE CommunityShadersModule = GetModuleHandleW(L"CommunityShaders.dll");
 
-  if (CommunityShadersFound)
+  if (CommunityShadersModule)
     CommunityShadersFound = true;
 
   return 1;
