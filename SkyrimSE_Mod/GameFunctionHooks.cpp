@@ -3,72 +3,35 @@
 
 #include "GameFunctionHooks.h"
 
-UpdateEntityPosition_Template ChangePlayerPosition_Original = nullptr;
-void __fastcall UpdateEntityPosition_Hooked(Entity *Entity,
-                                            UpdateEntityPositionArg arg) {
-  return ChangePlayerPosition_Original(Entity, arg);
-}
-
-UpdateCharacterPosition_Template UpdateCharacterPosition_Original = nullptr;
-char __fastcall UpdateCharacterPosition_Hooked(Character *CharacterArg,
-                                               Vector3 NewPosition) {
-  if (CheatBase::TeleportAllEntitiesToPlayer) {
-    if (CharacterArg != CheatBase::LocalCharacter) {
-      NewPosition.x = CheatBase::LocalCharacter->Position.x;
-      NewPosition.y = CheatBase::LocalCharacter->Position.y;
-      NewPosition.z = CheatBase::LocalCharacter->Position.z + 1000;
-    }
-  }
-
-  return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
-}
-
-PrintToScreen_Template PrintToScreen_Original = nullptr;
-__int64 __fastcall PrintToScreen_Hooked(BYTE *string, __int64 a2, char a3) {
-  printf("Print To Screen Called!\n");
-  printf("  String: %s ; a2: %d ; a3: %d\n", string, a2, a3);
-  return PrintToScreen_Original(string, a2, a3);
-}
-
 bool GameFunctionHooks::Initialize() {
+  using namespace Signatures;
+  using namespace PatternScan::Internal;
 
-  UpdateEntityPositionFunctionAddress =
-      PatternScan::Internal::PatternScanModule_ComboPattern(
-          "SkyrimSE.exe", Signatures::UpdateEntityPositionFunctionSignature,
-          Signatures::UpdateEntityPositionFunctionSignatureLength);
+  UpdateEntityPositionFunctionAddress = PatternScanModule_ComboPattern(
+      "SkyrimSE.exe", UpdateEntityPositionFunctionSignature,
+      UpdateEntityPositionFunctionSignatureLength);
   if (!UpdateEntityPositionFunctionAddress) {
-    printf("UpdateEntityPositionFunctionAddress PatternScan failed!\n");
+    Console::PrintError(
+        "UpdateEntityPositionFunctionAddress PatternScan Failed!");
     return 0;
   }
 
-  UpdateCharacterPositionFunctionAddress =
-      PatternScan::Internal::PatternScanModule_ComboPattern(
-          "SkyrimSE.exe", Signatures::UpdateCharacterPositionFunctionSignature,
-          Signatures::UpdateCharacterPositionFunctionSignatureLength);
+  UpdateCharacterPositionFunctionAddress = PatternScanModule_ComboPattern(
+      "SkyrimSE.exe", UpdateCharacterPositionFunctionSignature,
+      UpdateCharacterPositionFunctionSignatureLength);
   if (!UpdateCharacterPositionFunctionAddress) {
-    printf("UpdateCharacterPositionFunctionAddress PatternScan failed!\n");
+    Console::PrintError(
+        "UpdateCharacterPositionFunctionAddress PatternScan Failed!");
     return 0;
   }
 
-  PrintToScreenFunctionAddress =
-      PatternScan::Internal::PatternScanModule_ComboPattern(
-          "SkyrimSE.exe", Signatures::PrintToScreenFunctionSignature,
-          Signatures::PrintToScreenFunctionSignatureLength);
+  PrintToScreenFunctionAddress = PatternScanModule_ComboPattern(
+      "SkyrimSE.exe", PrintToScreenFunctionSignature,
+      PrintToScreenFunctionSignatureLength);
   if (!PrintToScreenFunctionAddress) {
-    printf("PrintToScreenFunctionAddress PatternScan failed!\n");
+    Console::PrintError("PrintToScreenFunctionAddress PatternScan Failed!");
     return 0;
   }
-
-  UpdateLockpickHealthFunctionAddress =
-      PatternScan::Internal::PatternScanModule_ComboPattern(
-          "SkyrimSE.exe", Signatures::UpdateLockpickHealthFunctionSignature,
-          Signatures::UpdateLockpickHealthFunctionSignatureLength);
-  if (!UpdateLockpickHealthFunctionAddress) {
-    printf("UpdateLockpickHealthFunctionAddress PatternScan failed!\n");
-    return 0;
-  }
-
-  GameFunctionHooks::EnableGameFunctionHooks();
 
   return 1;
 }
@@ -77,11 +40,12 @@ bool GameFunctionHooks::EnableGameFunctionHooks() {
 
   // EnableUpdateEntityPositionHook();
 
-  EnableUpdateCharacterPositionHook();
+  if (!EnableUpdateCharacterPositionHook()) {
+    Console::PrintError("EnableUpdateCharacterPositionHook");
+    return 0;
+  }
 
   // EnablePrintToScreenHook();
-
-  Console::PrintSuccess("GameFunctionHooks Enabled.");
 
   return 1;
 }
@@ -132,4 +96,30 @@ bool GameFunctionHooks::EnablePrintToScreenHook() {
   }
 
   return 1;
+}
+
+void __fastcall GameFunctionHooks::UpdateEntityPosition_Hooked(
+    Entity *Entity, UpdateEntityPositionArg arg) {
+  return ChangePlayerPosition_Original(Entity, arg);
+}
+
+char __fastcall GameFunctionHooks::UpdateCharacterPosition_Hooked(
+    Character *CharacterArg, Vector3 NewPosition) {
+  if (CheatBase::TeleportAllEntitiesToPlayer) {
+    if (CharacterArg != CheatBase::LocalCharacter) {
+      NewPosition.x = CheatBase::LocalCharacter->Position.x;
+      NewPosition.y = CheatBase::LocalCharacter->Position.y;
+      NewPosition.z = CheatBase::LocalCharacter->Position.z + 1000;
+    }
+  }
+
+  return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
+}
+
+__int64 __fastcall GameFunctionHooks::PrintToScreen_Hooked(BYTE *string,
+                                                           __int64 a2,
+                                                           char a3) {
+  printf("Print To Screen Called!\n");
+  printf("  String: %s ; a2: %d ; a3: %d\n", string, a2, a3);
+  return PrintToScreen_Original(string, a2, a3);
 }

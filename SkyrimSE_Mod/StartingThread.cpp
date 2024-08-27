@@ -19,10 +19,21 @@ LRESULT WINAPI StartingThread(HMODULE hModule) {
     Console::PrintError("DirectXHook Initialize Failed!");
   }
 
+  if (!DirectXHook::EnableDirectXHooks()) {
+    Console::PrintError("EnableDirectXHooks Failed!");
+    return 0;
+  }
+
   if (GameFunctionHooks::Initialize()) {
     Console::PrintSuccess("GameFunctionHooks Initialized.");
   } else {
     Console::PrintError("GameFunctionHooks Initialize Failed!");
+  }
+
+  if (GameFunctionHooks::EnableGameFunctionHooks()) {
+    Console::PrintSuccess("GameFunctionHooks Enabled.");
+  } else {
+    Console::PrintError("EnableGameFunctionHooks Failed!");
   }
 
   while (!GetAsyncKeyState(VK_END)) {

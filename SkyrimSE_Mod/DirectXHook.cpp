@@ -5,6 +5,14 @@ bool DirectXHook::Initialize() {
 
   SkyrimSE_hWnd = FindWindowA(NULL, "Skyrim Special Edition");
 
+  if (!SkyrimSE_hWnd) {
+    Console::PrintError("FindWindowA Failed!");
+    return 0;
+  }
+
+  SKSE_Original_WndProc = (WNDPROC)SetWindowLongPtrA(
+      SkyrimSE_hWnd, GWLP_WNDPROC, (LONG_PTR)SKSE_MyWndProc);
+
   VersionCheck->Initialize();
 
   if (VersionCheck->CommunityShadersFound) {
@@ -23,17 +31,12 @@ bool DirectXHook::Initialize() {
     return 0;
   }
 
-  if (!DirectXHook::EnableDirectXHooks()) {
-    Console::PrintError("EnableDirectXHooks Failed!");
-    return 0;
-  }
-
   return 1;
 }
 
 bool DirectXHook::Uninitialize() {
-  SetWindowLongPtr(DirectXHook::SkyrimSE_hWnd, GWLP_WNDPROC,
-                   (LONG_PTR)DirectXHook::SKSE_Original_WndProc);
+  SetWindowLongPtrA(DirectXHook::SkyrimSE_hWnd, GWLP_WNDPROC,
+                    (LONG_PTR)DirectXHook::SKSE_Original_WndProc);
   return 1;
 }
 
