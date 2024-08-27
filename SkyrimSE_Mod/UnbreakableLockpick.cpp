@@ -21,24 +21,19 @@ bool UnbreakableLockpickClass::Initialize() {
 }
 
 bool UnbreakableLockpickClass::Enable() {
-  DWORD oProtect;
-  VirtualProtect((LPVOID)UpdateLockpickHealthInstructionAddress, 8,
-                 PAGE_EXECUTE_READWRITE, &oProtect);
+
   memset((void *)UpdateLockpickHealthInstructionAddress, 0x90, 0x8);
-  VirtualProtect((LPVOID)UpdateLockpickHealthInstructionAddress, 8, oProtect,
-                 nullptr);
+
   PreviousUnbreakableLockpick = true;
+
   return 1;
 }
 
 bool UnbreakableLockpickClass::Disable() {
-  DWORD oProtect;
-  VirtualProtect((LPVOID)UpdateLockpickHealthInstructionAddress, 8,
-                 PAGE_EXECUTE_READWRITE, &oProtect);
+
   memcpy((void *)UpdateLockpickHealthInstructionAddress,
          UnbreakableLockpickOriginalBytes, 0x8);
-  VirtualProtect((LPVOID)UpdateLockpickHealthInstructionAddress, 8, oProtect,
-                 nullptr);
+
   PreviousUnbreakableLockpick = false;
   return 1;
 }
