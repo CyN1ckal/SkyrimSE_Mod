@@ -19,8 +19,7 @@ bool DirectXHook::Initialize() {
   }
 
   if (!PresentFunctionAddress) {
-    Console::PrintError("PresentFunctionAddress");
-    printf("%X\n", GetLastError());
+    Console::PrintError("PresentFunctionAddress Missing!");
     return 0;
   }
 
@@ -103,8 +102,8 @@ bool DirectXHook::GetPresentPointer() {
       NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, feature_levels, 2,
       D3D11_SDK_VERSION, &sd, &SwapChain, &Device, nullptr, nullptr);
   if (ReturnValue != S_OK) {
-    printf("D3D11CreateDeviceAndSwapChain Error!\n");
-    printf("Return Value: %llX\n", ReturnValue);
+    Console::PrintError("D3D11CreateDeviceAndSwapChain Failed!");
+    printf("    Return Value: %llX\n", ReturnValue);
     return 0;
   }
 

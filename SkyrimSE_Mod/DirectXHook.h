@@ -23,7 +23,7 @@ public:
   static inline DWORD SkyrimSE_ProcessId = 0;
   static inline uintptr_t PresentFunctionAddress = 0;
 
-public:
+private:
   // Helper Classes
   static VersionCheckClass *VersionCheck;
 
