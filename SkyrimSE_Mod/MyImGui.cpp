@@ -15,9 +15,7 @@ bool MyImGui::Initialize(ID3D11Device *Device,
 
   m_ImGuiInitialized = true;
 
-  Console::CustomColor(ConsoleColors::darkGreen);
-  printf("[+] MyImGui Initialized.\n");
-  Console::CustomColor(ConsoleColors::white);
+  Console::PrintSuccess("MyImGui Initialized.");
 
   return true;
 }
@@ -68,10 +66,9 @@ bool MyImGui::RenderWaterMark() {
 
 bool MyImGui::RenderLocalPlayerMenu() {
   // ImGui::SetNextWindowPos({0, 0});
-  bool *tgm = (bool *)(CheatBase::SkyrimSEBaseAddress + Offsets::tgmOffset);
   ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollbar;
   ImGui::Begin("Local Player", NULL, window_flags);
-  ImGui::Checkbox("TGM", tgm);
+  ImGui::Checkbox("TGM", CheatBase::TGM->TGM);
   ImGui::End();
   return 1;
 }

@@ -58,6 +58,9 @@
     <Filter Include="CheatBase\CheatFeatures\Unbreakable Lockpick">
       <UniqueIdentifier>{be563a7f-2de9-4d25-a356-8724b29133b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CheatBase\CheatFeatures\TGM">
+      <UniqueIdentifier>{cf123466-8767-4620-94ae-3d55b7e697c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -135,6 +138,9 @@
     <ClInclude Include="UnbreakableLockpick.h">
       <Filter>CheatBase\CheatFeatures\Unbreakable Lockpick</Filter>
     </ClInclude>
+    <ClInclude Include="TGM.h">
+      <Filter>CheatBase\CheatFeatures\TGM</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -196,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="UnbreakableLockpick.cpp">
       <Filter>CheatBase\CheatFeatures\Unbreakable Lockpick</Filter>
+    </ClCompile>
+    <ClCompile Include="TGM.cpp">
+      <Filter>CheatBase\CheatFeatures\TGM</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

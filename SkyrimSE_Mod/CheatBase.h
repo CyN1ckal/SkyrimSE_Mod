@@ -1,11 +1,11 @@
 #pragma once
 #include "UnbreakableLockpick.h"
+#include "TGM.h"
 
 class CheatBase {
 public:
   static bool Initialize();
   static bool Uninitialize();
-
   static bool FeatureLoop();
 
   // "Global" Variables
@@ -15,5 +15,8 @@ public:
   // ImGui Interface Variables
   static inline bool TeleportAllEntitiesToPlayer = false;
 
-  static UnbreakableLockpickClass* UnbreakableLockpick;
+public:
+  // Cheat Feature Classes
+  static UnbreakableLockpickClass *UnbreakableLockpick;
+  static TGMClass *TGM;
 };

@@ -6,31 +6,6 @@
 UpdateEntityPosition_Template ChangePlayerPosition_Original = nullptr;
 void __fastcall UpdateEntityPosition_Hooked(Entity *Entity,
                                             UpdateEntityPositionArg arg) {
-
-  // if (Entity != CheatBase::LocalEntity) {
-  //   return ChangePlayerPosition_Original(Entity, arg);
-  // }
-
-  // Ghetto FlyHack
-  // if (GetAsyncKeyState(VK_NUMPAD5)) {
-  //  arg.Position.x += 2;
-  //}
-  // if (GetAsyncKeyState(VK_NUMPAD2)) {
-  //  arg.Position.x -= 2;
-  //}
-  // if (GetAsyncKeyState(VK_NUMPAD1)) {
-  //  arg.Position.y += 2;
-  //}
-  // if (GetAsyncKeyState(VK_NUMPAD3)) {
-  //  arg.Position.y -= 2;
-  //}
-  // if (GetAsyncKeyState(VK_NUMPAD7)) {
-  //  arg.Position.z += 2;
-  //}
-  // if (GetAsyncKeyState(VK_NUMPAD4)) {
-  //  arg.Position.z -= 2;
-  //}
-
   return ChangePlayerPosition_Original(Entity, arg);
 }
 
@@ -104,7 +79,7 @@ bool GameFunctionHooks::EnableGameFunctionHooks() {
 
   EnableUpdateCharacterPositionHook();
 
-  //EnablePrintToScreenHook();
+  // EnablePrintToScreenHook();
 
   Console::PrintSuccess("GameFunctionHooks Enabled.");
 

@@ -17,6 +17,7 @@ bool UnbreakableLockpickClass::Initialize() {
   if (UnbreakableLockpickOriginalBytes[0] == 0x00)
     memcpy(UnbreakableLockpickOriginalBytes,
            (void *)UpdateLockpickHealthInstructionAddress, 8);
+  return 1;
 }
 
 bool UnbreakableLockpickClass::Enable() {
@@ -42,7 +43,7 @@ bool UnbreakableLockpickClass::Disable() {
   return 1;
 }
 
-bool UnbreakableLockpickClass::Cheat_UnbreakableLockpick() {
+bool UnbreakableLockpickClass::Handler() {
   if (PreviousUnbreakableLockpick == UnbreakableLockpick)
     return 1;
 

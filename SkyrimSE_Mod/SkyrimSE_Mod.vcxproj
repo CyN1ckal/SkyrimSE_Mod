@@ -178,6 +178,7 @@
     <ClInclude Include="Reclass.h" />
     <ClInclude Include="Signatures.h" />
     <ClInclude Include="StartingThread.h" />
+    <ClInclude Include="TGM.h" />
     <ClInclude Include="UnbreakableLockpick.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
@@ -256,6 +257,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StartingThread.cpp" />
+    <ClCompile Include="TGM.cpp" />
     <ClCompile Include="UnbreakableLockpick.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
