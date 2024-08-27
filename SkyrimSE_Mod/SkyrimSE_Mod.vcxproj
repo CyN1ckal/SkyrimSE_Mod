@@ -181,6 +181,7 @@
     <ClInclude Include="TGM.h" />
     <ClInclude Include="UnbreakableLockpick.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="VersionCheck.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CheatBase.cpp" />
@@ -259,6 +260,7 @@
     <ClCompile Include="StartingThread.cpp" />
     <ClCompile Include="TGM.cpp" />
     <ClCompile Include="UnbreakableLockpick.cpp" />
+    <ClCompile Include="VersionCheck.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -73,7 +73,7 @@ bool DirectXHook::GetPresentPointer() {
   Device->Release();
 
   PresentFunctionAddress = (uintptr_t)p_vtable[8];
-  printf("Present Function %llx\n", PresentFunctionAddress);
+  //printf("Present Function %llx\n", PresentFunctionAddress);
 
   return 1;
 }
@@ -83,12 +83,9 @@ bool DirectXHook::Initialize() {
 
   EnumWindows(DirectXHook::EnumWindowsProc, NULL);
 
-  // Checking for modded version
-  HMODULE ShadersModule = 0;
-  bool CommunityShadersFound = false;
+  VersionCheck->Initialize();
 
-  ShadersModule = GetModuleHandleW(L"CommunityShaders.dll");
-  if (ShadersModule) {
+  if (VersionCheck->CommunityShadersFound) {
     Console::PrintSuccess("CommunityShaders.dll Found!");
 
     DirectXHook::PresentFunctionAddress =
@@ -96,11 +93,9 @@ bool DirectXHook::Initialize() {
             "CommunityShaders.dll",
             Signatures::CommunityShadersPresentFunctionSignature,
             Signatures::CommunityShadersPresentFunctionSignatureLength);
-    CommunityShadersFound = true;
-  }
+  } else {
+    Console::PrintSuccess("Non-Modded Version Found!");
 
-  // Revert to default method for non-modded
-  if (!CommunityShadersFound) {
     if (!DirectXHook::GetPresentPointer()) {
       Console::PrintError("GetPresentPointer Failed!");
       return 0;

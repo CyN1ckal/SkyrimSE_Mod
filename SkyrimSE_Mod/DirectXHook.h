@@ -1,5 +1,7 @@
 #pragma once
 
+#include "VersionCheck.h"
+
 typedef long(__stdcall *Present_Template)(IDXGISwapChain *, UINT, UINT);
 
 class DirectXHook {
@@ -38,5 +40,6 @@ public:
 
   static bool Uninitialize();
 
-private:
+public:
+  static VersionCheckClass *VersionCheck;
 };

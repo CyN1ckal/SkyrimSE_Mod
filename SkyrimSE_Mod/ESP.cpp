@@ -1,5 +1,7 @@
 #include "pch.h"
 
+#include "ESP.h"
+
 bool ESP::Initialize() {
   if (m_Initialized)
     return true;

@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "DirectInputHook.h"
+
+
 #define DIRECTINPUT_VERSION 0x0800
 
 bool DirectInputHook::Initialize() {

@@ -45,10 +45,6 @@
 
 #include "DirectXHook.h"
 
-#include "DirectInputHook.h"
-
 #include "MyImGui.h"
-
-#include "ESP.h"
 
 #endif // PCH_H
