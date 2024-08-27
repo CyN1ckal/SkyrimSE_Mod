@@ -26,7 +26,7 @@ public:
 
   static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam);
 
-  static inline bool ImGuiInit = false;
+  static inline bool m_DXInitialized = false;
 
   static LRESULT __stdcall SKSE_WndProc(const HWND hWnd, UINT uMsg,
                                         WPARAM wParam, LPARAM lParam);
@@ -35,7 +35,8 @@ public:
                                             WPARAM wParam, LPARAM lParam);
 
   static inline WNDPROC SKSE_WndProc_Original;
-  static inline WNDPROC FullPath_WndProc_Original;
+
+  static bool Uninitialize();
 
 private:
 };

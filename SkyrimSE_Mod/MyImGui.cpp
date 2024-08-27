@@ -1,15 +1,25 @@
-#include "MyImGui.h"
 #include "pch.h"
 
-bool MyImGui::Initialize() {
+bool MyImGui::Initialize(ID3D11Device *Device,
+                         ID3D11DeviceContext *DeviceContext, HWND hWnd) {
+  if (m_ImGuiInitialized)
+    return true;
+
+  ImGui::CreateContext();
+  ImGuiIO &io = ImGui::GetIO();
+  ImGui_ImplWin32_Init(hWnd);
+  ImGui_ImplDX11_Init(Device, DeviceContext);
+
   MouseHandleToggleAddress =
-      (BYTE *)(CheatBase::SkyrimSEBaseAddress + 0x2029850);
+      (BYTE *)(CheatBase::SkyrimSEBaseAddress + Offsets::MouseHandlerOffset);
+
+  m_ImGuiInitialized = true;
 
   Console::CustomColor(ConsoleColors::darkGreen);
   printf("[+] MyImGui Initialized.\n");
   Console::CustomColor(ConsoleColors::white);
 
-  return 1;
+  return true;
 }
 
 bool MyImGui::OnFrame() {
@@ -23,10 +33,9 @@ bool MyImGui::OnFrame() {
   if (MasterImGuiToggle) {
     ImGui::ShowDemoWindow();
 
-    ImGui::Begin("Exploits");
-    ImGui::Checkbox("Teleport All To Me",
-                    &CheatBase::TeleportAllEntitiesToPlayer);
-    ImGui::End();
+    MyImGui::RenderExploitsMenu();
+
+    MyImGui::RenderLocalPlayerMenu();
   }
 
   ImGui::EndFrame();
@@ -53,6 +62,25 @@ bool MyImGui::RenderWaterMark() {
       ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
   ImGui::Begin("Watermark", NULL, window_flags);
   ImGui::Text("Skyrim Special Edition: Modded");
+  ImGui::End();
+  return 1;
+}
+
+bool MyImGui::RenderLocalPlayerMenu() {
+  // ImGui::SetNextWindowPos({0, 0});
+  bool *tgm = (bool *)(CheatBase::SkyrimSEBaseAddress + Offsets::tgmOffset);
+  ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollbar;
+  ImGui::Begin("Local Player", NULL, window_flags);
+  ImGui::Checkbox("TGM", tgm);
+  ImGui::End();
+  return 1;
+}
+
+bool MyImGui::RenderExploitsMenu() {
+  ImGui::Begin("Exploits");
+  ImGui::Checkbox("Teleport All To Me",
+                  &CheatBase::TeleportAllEntitiesToPlayer);
+  ImGui::Checkbox("Unbreakable Lockpick", &CheatBase::UnbreakableLockpick->UnbreakableLockpick);
   ImGui::End();
   return 1;
 }

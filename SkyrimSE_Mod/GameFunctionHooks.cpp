@@ -7,34 +7,29 @@ UpdateEntityPosition_Template ChangePlayerPosition_Original = nullptr;
 void __fastcall UpdateEntityPosition_Hooked(Entity *Entity,
                                             UpdateEntityPositionArg arg) {
 
-  if (!CheatBase::LocalEntity) {
-    CheatBase::InitializeLocalEntity();
-    return ChangePlayerPosition_Original(Entity, arg);
-  }
-
-  //if (Entity != CheatBase::LocalEntity) {
-  //  return ChangePlayerPosition_Original(Entity, arg);
-  //}
+  // if (Entity != CheatBase::LocalEntity) {
+  //   return ChangePlayerPosition_Original(Entity, arg);
+  // }
 
   // Ghetto FlyHack
-  if (GetAsyncKeyState(VK_NUMPAD5)) {
-    arg.Position.x += 2;
-  }
-  if (GetAsyncKeyState(VK_NUMPAD2)) {
-    arg.Position.x -= 2;
-  }
-  if (GetAsyncKeyState(VK_NUMPAD1)) {
-    arg.Position.y += 2;
-  }
-  if (GetAsyncKeyState(VK_NUMPAD3)) {
-    arg.Position.y -= 2;
-  }
-  if (GetAsyncKeyState(VK_NUMPAD7)) {
-    arg.Position.z += 2;
-  }
-  if (GetAsyncKeyState(VK_NUMPAD4)) {
-    arg.Position.z -= 2;
-  }
+  // if (GetAsyncKeyState(VK_NUMPAD5)) {
+  //  arg.Position.x += 2;
+  //}
+  // if (GetAsyncKeyState(VK_NUMPAD2)) {
+  //  arg.Position.x -= 2;
+  //}
+  // if (GetAsyncKeyState(VK_NUMPAD1)) {
+  //  arg.Position.y += 2;
+  //}
+  // if (GetAsyncKeyState(VK_NUMPAD3)) {
+  //  arg.Position.y -= 2;
+  //}
+  // if (GetAsyncKeyState(VK_NUMPAD7)) {
+  //  arg.Position.z += 2;
+  //}
+  // if (GetAsyncKeyState(VK_NUMPAD4)) {
+  //  arg.Position.z -= 2;
+  //}
 
   return ChangePlayerPosition_Original(Entity, arg);
 }
@@ -53,26 +48,70 @@ char __fastcall UpdateCharacterPosition_Hooked(Character *CharacterArg,
   return UpdateCharacterPosition_Original(CharacterArg, NewPosition);
 }
 
+PrintToScreen_Template PrintToScreen_Original = nullptr;
+__int64 __fastcall PrintToScreen_Hooked(BYTE *string, __int64 a2, char a3) {
+  printf("Print To Screen Called!\n");
+  printf("  String: %s ; a2: %d ; a3: %d\n", string, a2, a3);
+  return PrintToScreen_Original(string, a2, a3);
+}
+
 bool GameFunctionHooks::Initialize() {
 
   UpdateEntityPositionFunctionAddress =
       PatternScan::Internal::PatternScanModule_ComboPattern(
           "SkyrimSE.exe", Signatures::UpdateEntityPositionFunctionSignature,
           Signatures::UpdateEntityPositionFunctionSignatureLength);
+  if (!UpdateEntityPositionFunctionAddress) {
+    printf("UpdateEntityPositionFunctionAddress PatternScan failed!\n");
+    return 0;
+  }
 
   UpdateCharacterPositionFunctionAddress =
       PatternScan::Internal::PatternScanModule_ComboPattern(
           "SkyrimSE.exe", Signatures::UpdateCharacterPositionFunctionSignature,
           Signatures::UpdateCharacterPositionFunctionSignatureLength);
+  if (!UpdateCharacterPositionFunctionAddress) {
+    printf("UpdateCharacterPositionFunctionAddress PatternScan failed!\n");
+    return 0;
+  }
 
-  Console::CustomColor(ConsoleColors::darkGreen);
-  printf("[+] GameFunctionHooks Initialized.\n");
-  Console::CustomColor(ConsoleColors::white);
+  PrintToScreenFunctionAddress =
+      PatternScan::Internal::PatternScanModule_ComboPattern(
+          "SkyrimSE.exe", Signatures::PrintToScreenFunctionSignature,
+          Signatures::PrintToScreenFunctionSignatureLength);
+  if (!PrintToScreenFunctionAddress) {
+    printf("PrintToScreenFunctionAddress PatternScan failed!\n");
+    return 0;
+  }
+
+  UpdateLockpickHealthFunctionAddress =
+      PatternScan::Internal::PatternScanModule_ComboPattern(
+          "SkyrimSE.exe", Signatures::UpdateLockpickHealthFunctionSignature,
+          Signatures::UpdateLockpickHealthFunctionSignatureLength);
+  if (!UpdateLockpickHealthFunctionAddress) {
+    printf("UpdateLockpickHealthFunctionAddress PatternScan failed!\n");
+    return 0;
+  }
+
+  GameFunctionHooks::EnableGameFunctionHooks();
 
   return 1;
 }
 
 bool GameFunctionHooks::EnableGameFunctionHooks() {
+
+  // EnableUpdateEntityPositionHook();
+
+  EnableUpdateCharacterPositionHook();
+
+  //EnablePrintToScreenHook();
+
+  Console::PrintSuccess("GameFunctionHooks Enabled.");
+
+  return 1;
+}
+
+bool GameFunctionHooks::EnableUpdateEntityPositionHook() {
   if (MH_CreateHook((void *)UpdateEntityPositionFunctionAddress,
                     &UpdateEntityPosition_Hooked,
                     reinterpret_cast<LPVOID *>(
@@ -85,7 +124,10 @@ bool GameFunctionHooks::EnableGameFunctionHooks() {
     printf("MH_EnableHook UpdateEntityPositionFunctionAddress Error!\n");
     return 0;
   }
+  return 1;
+}
 
+bool GameFunctionHooks::EnableUpdateCharacterPositionHook() {
   if (MH_CreateHook((void *)UpdateCharacterPositionFunctionAddress,
                     &UpdateCharacterPosition_Hooked,
                     reinterpret_cast<LPVOID *>(
@@ -98,10 +140,21 @@ bool GameFunctionHooks::EnableGameFunctionHooks() {
     printf("MH_EnableHook UpdateCharacterPositionFunctionAddress Error!\n");
     return 0;
   }
+  return 1;
+}
 
-  Console::CustomColor(ConsoleColors::darkGreen);
-  printf("[+] All Game Function Hooks Enabled.\n");
-  Console::CustomColor(ConsoleColors::white);
+bool GameFunctionHooks::EnablePrintToScreenHook() {
+  if (MH_CreateHook((void *)PrintToScreenFunctionAddress, &PrintToScreen_Hooked,
+                    reinterpret_cast<LPVOID *>(&PrintToScreen_Original)) !=
+      MH_OK) {
+    printf("MH_CreateHook UpdateCharacterPositionFunctionAddress Error!\n");
+    return 0;
+  }
+
+  if (MH_EnableHook((void *)PrintToScreenFunctionAddress) != MH_OK) {
+    printf("MH_EnableHook UpdateCharacterPositionFunctionAddress Error!\n");
+    return 0;
+  }
 
   return 1;
 }

@@ -33,3 +33,15 @@ void Console::PrintWithTime(std::string Message) {
   Console::PrintTime();
   printf(" - %s\n", Message.c_str());
 }
+
+void Console::PrintError(std::string Message) {
+  CustomColor(ConsoleColors::red);
+  printf("[-] %s\n", Message.c_str());
+  CustomColor(ConsoleColors::white);
+}
+
+void Console::PrintSuccess(std::string Message) {
+  CustomColor(ConsoleColors::darkGreen);
+  printf("[+] %s\n", Message.c_str());
+  CustomColor(ConsoleColors::white);
+}

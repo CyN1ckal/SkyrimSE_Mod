@@ -167,15 +167,18 @@
     <ClInclude Include="Deps\ImGui\imstb_truetype.h" />
     <ClInclude Include="DirectInputHook.h" />
     <ClInclude Include="DirectXHook.h" />
+    <ClInclude Include="ESP.h" />
     <ClInclude Include="GameFunctionHooks.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MyImGui.h" />
+    <ClInclude Include="Offsets.h" />
     <ClInclude Include="PatternScan.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PointerDeref.h" />
     <ClInclude Include="Reclass.h" />
     <ClInclude Include="Signatures.h" />
     <ClInclude Include="StartingThread.h" />
+    <ClInclude Include="UnbreakableLockpick.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +234,7 @@
     <ClCompile Include="DirectInputHook.cpp" />
     <ClCompile Include="DirectXHook.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="ESP.cpp" />
     <ClCompile Include="GameFunctionHooks.cpp" />
     <ClCompile Include="MyImGui.cpp" />
     <ClCompile Include="PatternScan.cpp">
@@ -252,6 +256,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StartingThread.cpp" />
+    <ClCompile Include="UnbreakableLockpick.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

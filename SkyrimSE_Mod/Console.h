@@ -27,6 +27,8 @@ bool CleanUp();
 bool CustomColor(ConsoleColors Color);
 void PrintTime();
 void PrintWithTime(std::string Message);
+void PrintError(std::string Message);
+void PrintSuccess(std::string Message);
 
 static FILE *f;
 static HANDLE hConsole;

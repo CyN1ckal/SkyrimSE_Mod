@@ -13,13 +13,6 @@ LRESULT __stdcall DirectXHook::SKSE_WndProc(const HWND hWnd, UINT uMsg,
   return CallWindowProc(SKSE_WndProc_Original, hWnd, uMsg, wParam, lParam);
 }
 
-LRESULT __stdcall DirectXHook::FullPath_WndProc(const HWND hWnd, UINT uMsg,
-                                                WPARAM wParam, LPARAM lParam) {
-
-  return true;
-  // return CallWindowProc(WndProc_Original, hWnd, uMsg, wParam, lParam);
-}
-
 BOOL DirectXHook::EnumWindowsProc(HWND hWnd, LPARAM lParam) {
 
   DWORD CurrentHWNDProcID;
@@ -80,6 +73,7 @@ bool DirectXHook::GetPresentPointer() {
   Device->Release();
 
   PresentFunctionAddress = (uintptr_t)p_vtable[8];
+  printf("Present Function %llx\n", PresentFunctionAddress);
 
   return 1;
 }
@@ -89,13 +83,48 @@ bool DirectXHook::Initialize() {
 
   EnumWindows(DirectXHook::EnumWindowsProc, NULL);
 
+  // Checking for modded version
+  HMODULE ShadersModule = 0;
+  bool CommunityShadersFound = false;
+
+  ShadersModule = GetModuleHandleW(L"CommunityShaders.dll");
+  if (ShadersModule) {
+    Console::PrintSuccess("CommunityShaders.dll Found!");
+
+    DirectXHook::PresentFunctionAddress =
+        PatternScan::Internal::PatternScanModule_ComboPattern(
+            "CommunityShaders.dll",
+            Signatures::CommunityShadersPresentFunctionSignature,
+            Signatures::CommunityShadersPresentFunctionSignatureLength);
+    CommunityShadersFound = true;
+  }
+
+  // Revert to default method for non-modded
+  if (!CommunityShadersFound) {
+    if (!DirectXHook::GetPresentPointer()) {
+      Console::PrintError("GetPresentPointer Failed!");
+      return 0;
+    }
+  }
+
+  if (!PresentFunctionAddress) {
+    Console::PrintError("PresentFunctionAddress");
+    printf("%X\n", GetLastError());
+    return 0;
+  }
+
+  if (!DirectXHook::EnableDirectXHooks()) {
+    Console::PrintError("EnableDirectXHooks Failed!");
+    return 0;
+  }
+
   return 1;
 }
 
 Present_Template Present_Original = nullptr;
 long __stdcall DirectXHook::Present_Hooked(IDXGISwapChain *SwapChain,
                                            UINT SyncInterval, UINT Flags) {
-  if (!ImGuiInit) {
+  if (!m_DXInitialized) {
     if (SUCCEEDED(SwapChain->GetDevice(__uuidof(ID3D11Device),
                                        (void **)&D3D11_Device))) {
       D3D11_Device->GetImmediateContext(&D3D11_DeviceContext);
@@ -106,23 +135,22 @@ long __stdcall DirectXHook::Present_Hooked(IDXGISwapChain *SwapChain,
                                            &MainRenderTargetView);
       pBackBuffer->Release();
 
-      ImGui::CreateContext();
-      ImGuiIO &io = ImGui::GetIO();
-      ImGui_ImplWin32_Init(SkyrimSE_hWnd);
-      ImGui_ImplDX11_Init(D3D11_Device, D3D11_DeviceContext);
-      ImGuiInit = true;
+      m_DXInitialized = true;
+
+      MyImGui::Initialize(D3D11_Device, D3D11_DeviceContext, SkyrimSE_hWnd);
+
+      // ESP::Initialize();
 
     } else {
-      printf("ImGuiInit Failed!\n");
+      printf("SwapChain->GetDevice Error!\n");
       return Present_Original(SwapChain, SyncInterval, Flags);
     }
   }
 
-  MyImGui::OnFrame();
-
-  D3D11_DeviceContext->OMSetRenderTargets(1, &MainRenderTargetView, NULL);
-
-  ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+  if (MyImGui::m_ImGuiInitialized) {
+    MyImGui::OnFrame();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+  }
 
   return Present_Original(SwapChain, SyncInterval, Flags);
 }
@@ -140,5 +168,11 @@ bool DirectXHook::EnableDirectXHooks() {
     return 0;
   }
 
+  return 1;
+}
+
+bool DirectXHook::Uninitialize() {
+  SetWindowLongPtr(DirectXHook::SkyrimSE_hWnd, GWLP_WNDPROC,
+                   (LONG_PTR)DirectXHook::SKSE_WndProc_Original);
   return 1;
 }
