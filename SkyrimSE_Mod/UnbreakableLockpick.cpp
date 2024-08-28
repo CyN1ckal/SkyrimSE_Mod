@@ -9,6 +9,7 @@ bool UnbreakableLockpickClass::Initialize() {
       PatternScan::Internal::PatternScanModule_ComboPattern(
           "SkyrimSE.exe", Signatures::UpdateLockpickHealthInstructionSignature,
           Signatures::UpdateLockpickHealthInstructionSignatureLength);
+
   if (!UpdateLockpickHealthInstructionAddress) {
     printf("UpdateLockpickHealthInstructionAddress PatternScan failed!\n");
     return 0;
@@ -17,6 +18,7 @@ bool UnbreakableLockpickClass::Initialize() {
   if (UnbreakableLockpickOriginalBytes[0] == 0x00)
     memcpy(UnbreakableLockpickOriginalBytes,
            (void *)UpdateLockpickHealthInstructionAddress, 8);
+
   return 1;
 }
 
@@ -56,12 +58,16 @@ bool UnbreakableLockpickClass::Disable() {
 }
 
 bool UnbreakableLockpickClass::Handler() {
+
   if (PreviousUnbreakableLockpick == UnbreakableLockpick)
     return 1;
 
   if (UnbreakableLockpick) {
+
     Enable();
+
   } else {
+
     Disable();
   }
 
