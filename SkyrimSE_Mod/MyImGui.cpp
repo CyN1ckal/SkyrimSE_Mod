@@ -24,6 +24,7 @@ bool MyImGui::Initialize(ID3D11Device *Device,
 }
 
 bool MyImGui::OnFrame() {
+
   ImGui_ImplDX11_NewFrame();
   ImGui_ImplWin32_NewFrame();
 
@@ -75,6 +76,7 @@ bool MyImGui::RenderWaterMark() {
   ImGui::Text("Skyrim Special Edition: Modded");
 
   ImGui::End();
+
   return 1;
 }
 
@@ -84,7 +86,7 @@ bool MyImGui::RenderLocalPlayerMenu() {
       ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_AlwaysAutoResize;
 
   ImGui::Begin("Local Player", NULL, window_flags);
-  ImGui::Checkbox("TGM", CheatBase::TGM->TGM);
+  ImGui::Checkbox("TGM", CheatBase::FeatureBase->TGM->TGM);
 
   if (CheatBase::LocalCharacter->pWorld) {
 
@@ -96,10 +98,10 @@ bool MyImGui::RenderLocalPlayerMenu() {
   }
 
   ImGui::End();
+
   return 1;
 }
 
-bool DEVTEST = false;
 bool MyImGui::RenderExploitsMenu() {
 
   ImGuiWindowFlags window_flags =
@@ -111,10 +113,11 @@ bool MyImGui::RenderExploitsMenu() {
                   &CheatBase::TeleportAllEntitiesToPlayer);
 
   ImGui::Checkbox("Unbreakable Lockpick",
-                  &CheatBase::UnbreakableLockpick->UnbreakableLockpick);
+                  &CheatBase::FeatureBase->UnbreakableLockpick->UnbreakableLockpick);
 
   ImGui::Checkbox("No Decrement Gold", &CheatBase::NoDecrementGold);
 
   ImGui::End();
+
   return 1;
 }

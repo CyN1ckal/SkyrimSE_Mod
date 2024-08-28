@@ -1,5 +1,8 @@
 #pragma once
+
 #include "pch.h"
+
+#include "FeatureBase.h"
 
 bool CheatBase::Initialize() {
 
@@ -7,27 +10,19 @@ bool CheatBase::Initialize() {
 
   LocalCharacter = *(Character **)(SkyrimSEBaseAddress + 0x02014348);
 
-  UnbreakableLockpick->Initialize();
+  FeatureBase = new FeatureBaseClass;
 
-  TGM->Initialize();
-
+  FeatureBase->Initialize();
 
   return 1;
 }
 
 bool CheatBase::Uninitialize() {
 
-  UnbreakableLockpick->Disable();
+  FeatureBase->Uninitialize();
 
-  TGM->Disable();
-
-  return 1;
-}
-
-bool CheatBase::FeatureLoop() {
-
-  UnbreakableLockpick->Handler();
-
+  if (FeatureBase)
+    delete FeatureBase;
 
   return 1;
 }

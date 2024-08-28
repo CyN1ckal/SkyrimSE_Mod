@@ -42,22 +42,20 @@ LRESULT WINAPI StartingThread(HMODULE hModule) {
       MyImGui::ToggleMasterImGuiRenderer();
     }
 
-    CheatBase::FeatureLoop();
+    CheatBase::FeatureBase->Handler();
 
     Sleep(25);
   }
 
   Console::PrintError("Exiting.");
 
-  CheatBase::Uninitialize();
-
   DirectXHook::Uninitialize();
+
+  CheatBase::Uninitialize();
 
   MH_Uninitialize();
 
   Console::CleanUp();
-
-  Sleep(100);
 
   FreeLibraryAndExitThread(Globals::hModule, 0);
 

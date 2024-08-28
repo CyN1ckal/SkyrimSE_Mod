@@ -32,7 +32,6 @@ private:
   static inline Present_Template Present_Original = nullptr;
   static long __stdcall Present_Hooked(IDXGISwapChain *SwapChain,
                                        UINT SyncInterval, UINT Flags);
-
   static inline WNDPROC SKSE_Original_WndProc;
   static LRESULT __stdcall SKSE_MyWndProc(const HWND hWnd, UINT uMsg,
                                           WPARAM wParam, LPARAM lParam);

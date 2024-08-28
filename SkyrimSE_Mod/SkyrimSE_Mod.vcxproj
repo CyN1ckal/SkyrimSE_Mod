@@ -237,6 +237,7 @@
     <ClCompile Include="DirectXHook.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="ESP.cpp" />
+    <ClCompile Include="FeatureBase.cpp" />
     <ClCompile Include="GameFunctionHooks.cpp" />
     <ClCompile Include="MyImGui.cpp" />
     <ClCompile Include="PatternScan.cpp">
@@ -263,6 +264,7 @@
     <ClCompile Include="VersionCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FeatureBase.h" />
     <None Include="TODO.text">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </None>

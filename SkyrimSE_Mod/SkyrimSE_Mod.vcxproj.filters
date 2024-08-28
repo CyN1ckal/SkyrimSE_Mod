@@ -64,8 +64,8 @@
     <Filter Include="DirectX Hook\Version Check">
       <UniqueIdentifier>{df0a04f4-f26a-4f2f-81f1-aea05669ef2f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CheatBase\CheatFeatures\SpeedHack">
-      <UniqueIdentifier>{4a63cb3e-e8e4-4556-a7b8-86f9ae12034f}</UniqueIdentifier>
+    <Filter Include="Feature Base">
+      <UniqueIdentifier>{76647e7e-27d5-44c4-8d33-6ccb7c183a07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +150,6 @@
     <ClInclude Include="VersionCheck.h">
       <Filter>DirectX Hook\Version Check</Filter>
     </ClInclude>
-    <ClInclude Include="SpeedHack.h">
-      <Filter>CheatBase\CheatFeatures\SpeedHack</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -221,11 +218,14 @@
     <ClCompile Include="VersionCheck.cpp">
       <Filter>DirectX Hook\Version Check</Filter>
     </ClCompile>
-    <ClCompile Include="SpeedHack.cpp">
-      <Filter>CheatBase\CheatFeatures\SpeedHack</Filter>
+    <ClCompile Include="FeatureBase.cpp">
+      <Filter>Feature Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TODO.text" />
+    <None Include="FeatureBase.h">
+      <Filter>Feature Base</Filter>
+    </None>
   </ItemGroup>
 </Project>

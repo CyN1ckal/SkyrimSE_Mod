@@ -1,12 +1,11 @@
 #pragma once
-#include "UnbreakableLockpick.h"
-#include "TGM.h"
+
+#include "FeatureBase.h"
 
 class CheatBase {
 public:
   static bool Initialize();
   static bool Uninitialize();
-  static bool FeatureLoop();
 
   // "Global" Variables
   static inline uintptr_t SkyrimSEBaseAddress = 0;
@@ -17,8 +16,5 @@ public:
   static inline bool NoDecrementGold = false;
 
 public:
-  // Cheat Feature Classes
-  static UnbreakableLockpickClass *UnbreakableLockpick;
-  static TGMClass *TGM;
-
+  static inline FeatureBaseClass *FeatureBase = nullptr;
 };
