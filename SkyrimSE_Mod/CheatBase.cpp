@@ -11,6 +11,7 @@ bool CheatBase::Initialize() {
 
   TGM->Initialize();
 
+
   return 1;
 }
 
@@ -26,6 +27,7 @@ bool CheatBase::Uninitialize() {
 bool CheatBase::FeatureLoop() {
 
   UnbreakableLockpick->Handler();
+
 
   return 1;
 }

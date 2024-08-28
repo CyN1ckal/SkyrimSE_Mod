@@ -69,6 +69,12 @@ bool MyImGui::RenderLocalPlayerMenu() {
   ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollbar;
   ImGui::Begin("Local Player", NULL, window_flags);
   ImGui::Checkbox("TGM", CheatBase::TGM->TGM);
+
+  ImGui::SliderFloat("SpeedMult", &CheatBase::SpeedHack->DesiredSpeedMult, 0,
+                     1000);
+  if (ImGui::Button("Set To Default"))
+    CheatBase::LocalCharacter->pWorld->SpeedMult = 100.0f;
+
   ImGui::End();
   return 1;
 }

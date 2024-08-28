@@ -64,19 +64,25 @@ public:
   char pad_0048[12];                                     // 0x0048
   Vector3 Position;                                      // 0x0054
   class TESObjectCELL *pTESObjectCELL;                   // 0x0060
-  class UnknownClass *UnknownPtr;                        // 0x0068
+  class UnknownClass2 *UnknownPtr;                       // 0x0068
   char pad_0070[8];                                      // 0x0070
   class ExtraReservedMarkers *pExtraReservedMarkers;     // 0x0078
-  char pad_0080[120];                                    // 0x0080
+  char pad_0080[76];                                     // 0x0080
+  int32_t InGameCheck;                                   // 0x00CC 4200 = ingame
+  char pad_00D0[40];                                     // 0x00D0
   class CharacterStatsBaseBase *pCharacterStatsBaseBase; // 0x00F8
   char pad_0100[32];                                     // 0x0100
   int64_t UnknownInt;                                    // 0x0120
   char pad_0128[40];                                     // 0x0128
   class MovementControllerNPC *pMovementControllerNPC;   // 0x0150
-  char pad_0158[1008];                                   // 0x0158
+  char pad_0158[144];                                    // 0x0158
+  class UnknownClass (*pTESShout)[36];                   // 0x01E8
+  char pad_01F0[32];                                     // 0x01F0
+  class WorldValues *pWorld;                             // 0x0210
+  char pad_0218[816];                                    // 0x0218
 };                                                       // Size: 0x0548
 
-class UnknownClass {
+class UnknownClass2 {
 public:
   char pad_0000[264]; // 0x0000
 };                    // Size: 0x0108
@@ -106,8 +112,11 @@ public:
   float CurrentMagicka; // 0x0020
   char pad_0024[4];     // 0x0024
   float CurrentStamina; // 0x0028
-  char pad_002C[4];     // 0x002C
-};                      // Size: 0x0030
+  char pad_002C[24];    // 0x002C
+  int32_t MenuBool;     // 0x0044
+  float SpeedMult;      // 0x0048
+  char pad_004C[228];   // 0x004C
+};                      // Size: 0x0130
 
 class CharacterStatsBase {
 public:
@@ -127,13 +136,13 @@ public:
 
 class MaxCharacterStats {
 public:
-  float MaxHealth;  // 0x0000
-  char pad_0004[4]; // 0x0004
-  float MaxMagicka; // 0x0008
-  char pad_000C[4]; // 0x000C
-  float MaxStamina; // 0x0010
-  char pad_0014[4]; // 0x0014
-};                  // Size: 0x0018
+  float MaxHealth;   // 0x0000
+  char pad_0004[4];  // 0x0004
+  float MaxMagicka;  // 0x0008
+  char pad_000C[4];  // 0x000C
+  float MaxStamina;  // 0x0010
+  char pad_0014[76]; // 0x0014
+};                   // Size: 0x0060
 
 class BGSAttackDataMap {
 public:
@@ -227,11 +236,6 @@ public:
   char pad_037C[516]; // 0x037C
 };                    // Size: 0x0580
 
-class MessageType {
-public:
-  char pad_0000[384]; // 0x0000
-};                    // Size: 0x0180
-
 class ItemClass {
 public:
   char pad_0000[56];      // 0x0000
@@ -240,3 +244,22 @@ public:
   char (*pModelName)[64]; // 0x0048
   char pad_0050[216];     // 0x0050
 };                        // Size: 0x0128
+
+class UnknownClass {
+public:
+  char pad_0000[168]; // 0x0000
+};                    // Size: 0x00A8
+
+class SpeedMultBase {
+public:
+  char pad_0000[8];                // 0x0000
+  class WorldValues *pWorldValues; // 0x0008
+  char pad_0010[424];              // 0x0010
+};                                 // Size: 0x01B8
+
+class WorldValues {
+public:
+  char pad_0000[100]; // 0x0000
+  float SpeedMult;    // 0x0064
+  char pad_0068[160]; // 0x0068
+};                    // Size: 0x0108
