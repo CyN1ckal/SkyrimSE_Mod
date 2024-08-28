@@ -28,4 +28,8 @@ static const char *UpdateLockpickHealthInstructionSignature =
     "\xF3\x0F\x11\x0D????\xEB?\xF3\x0F\x10\x0D????\x0F";
 static const int UpdateLockpickHealthInstructionSignatureLength = 19;
 
+static const char *DecrementItemByAmountFunctionSignature =
+    "\x4C\x89\x4C\x24\x20\x4C\x89\x44\x24\x18\x48\x89\x54\x24\x10\x48";
+static const int DecrementItemByAmountFunctionSignatureLength = 16;
+
 } // namespace Signatures

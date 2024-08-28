@@ -33,7 +33,14 @@ bool GameFunctionHooks::Initialize() {
     return 0;
   }
 
-  UpdateInventoryFunctionAddress = CheatBase::SkyrimSEBaseAddress + 0x228180;
+  DecrementItemByAmountFunctionAddress = PatternScanModule_ComboPattern(
+      "SkyrimSE.exe", DecrementItemByAmountFunctionSignature,
+      DecrementItemByAmountFunctionSignatureLength);
+  if (!DecrementItemByAmountFunctionAddress) {
+    Console::PrintError(
+        "DecrementItemByAmountFunctionAddress PatternScan Failed!");
+    return 0;
+  }
 
   return 1;
 }
@@ -104,13 +111,13 @@ bool GameFunctionHooks::EnablePrintToScreenHook() {
 
 bool GameFunctionHooks::EnableUpdateInventoryHook() {
   if (MH_CreateHook(
-          (void *)UpdateInventoryFunctionAddress, &UpdateInventory_Hooked,
+          (void *)DecrementItemByAmountFunctionAddress, &DecrementItemByAmount,
           reinterpret_cast<LPVOID *>(&UpdateInventory_Original)) != MH_OK) {
     printf("MH_CreateHook UpdateInventoryFunctionAddress Error!\n");
     return 0;
   }
 
-  if (MH_EnableHook((void *)UpdateInventoryFunctionAddress) != MH_OK) {
+  if (MH_EnableHook((void *)DecrementItemByAmountFunctionAddress) != MH_OK) {
     printf("MH_EnableHook UpdateInventoryFunctionAddress Error!\n");
     return 0;
   }
@@ -151,13 +158,13 @@ enum DecrementType {
   Dropped = 0x7ff600000003
 };
 
-DWORD *__fastcall GameFunctionHooks::UpdateInventory_Hooked(
+DWORD *__fastcall GameFunctionHooks::DecrementItemByAmount(
     uintptr_t *a1, DWORD *a2, __int64 a3, ItemClass *Item,
     int AmountToDecrement, int DecrementReason, __int64 a7, __int64 a8,
     __int64 a9, __int64 a10) {
 
   // Console::PrintTime();
-  // printf(" - UpdateInventory_Hooked Called!\n");
+  // printf(" - DecrementItemByAmount Called!\n");
   // printf("  a1: %llx    a2: %llx    AmountToDecrement: %d    a3: %llx    a6:
   // "
   //        "%llx\n",
@@ -166,9 +173,8 @@ DWORD *__fastcall GameFunctionHooks::UpdateInventory_Hooked(
   // std::cout << *Item->pItemName << std::endl << std::endl;
 
   if (CheatBase::NoDecrementGold &&
-      DecrementReason == DecrementType::PlayerGoldReduction) {
+      DecrementReason == DecrementType::PlayerGoldReduction)
     AmountToDecrement = 0;
-  }
 
   return (UpdateInventory_Original(a1, a2, a3, Item, AmountToDecrement,
                                    DecrementReason, a7, a8, a9, a10));

@@ -33,7 +33,7 @@ private:
   static inline uintptr_t UpdateEntityPositionFunctionAddress = 0;
   static inline uintptr_t UpdateCharacterPositionFunctionAddress = 0;
   static inline uintptr_t PrintToScreenFunctionAddress = 0;
-  static inline uintptr_t UpdateInventoryFunctionAddress = 0;
+  static inline uintptr_t DecrementItemByAmountFunctionAddress = 0;
 
 private:
   // Original game function pointers
@@ -52,7 +52,7 @@ private:
                                                         Vector3 NewPosition);
   static __int64 __fastcall PrintToScreen_Hooked(BYTE *string, __int64 a2,
                                                  char a3);
-  static DWORD *__fastcall UpdateInventory_Hooked(uintptr_t *a1, DWORD *a2,
+  static DWORD *__fastcall DecrementItemByAmount(uintptr_t *a1, DWORD *a2,
                                                   __int64 a3, ItemClass *Item,
                                                   int AmountToDecrement,
                                                   int DecrementReason,
