@@ -177,7 +177,6 @@
     <ClInclude Include="PointerDeref.h" />
     <ClInclude Include="Reclass.h" />
     <ClInclude Include="Signatures.h" />
-    <ClInclude Include="SpeedHack.h" />
     <ClInclude Include="StartingThread.h" />
     <ClInclude Include="TGM.h" />
     <ClInclude Include="UnbreakableLockpick.h" />
@@ -258,7 +257,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SpeedHack.cpp" />
     <ClCompile Include="StartingThread.cpp" />
     <ClCompile Include="TGM.cpp" />
     <ClCompile Include="UnbreakableLockpick.cpp" />

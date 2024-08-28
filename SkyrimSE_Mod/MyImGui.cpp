@@ -66,14 +66,19 @@ bool MyImGui::RenderWaterMark() {
 
 bool MyImGui::RenderLocalPlayerMenu() {
   // ImGui::SetNextWindowPos({0, 0});
-  ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoScrollbar;
+  ImGuiWindowFlags window_flags =
+      ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_AlwaysAutoResize;
   ImGui::Begin("Local Player", NULL, window_flags);
   ImGui::Checkbox("TGM", CheatBase::TGM->TGM);
 
-  ImGui::SliderFloat("SpeedMult", &CheatBase::SpeedHack->DesiredSpeedMult, 0,
-                     1000);
-  if (ImGui::Button("Set To Default"))
-    CheatBase::LocalCharacter->pWorld->SpeedMult = 100.0f;
+  if (CheatBase::LocalCharacter->pWorld) {
+
+    ImGui::SliderFloat("SpeedMult",
+                       &CheatBase::LocalCharacter->pWorld->SpeedMult, 0, 1000);
+
+    if (ImGui::Button("Set To Default"))
+      CheatBase::LocalCharacter->pWorld->SpeedMult = 100.0f;
+  }
 
   ImGui::End();
   return 1;
@@ -81,7 +86,9 @@ bool MyImGui::RenderLocalPlayerMenu() {
 
 bool DEVTEST = false;
 bool MyImGui::RenderExploitsMenu() {
-  ImGui::Begin("Exploits");
+  ImGuiWindowFlags window_flags =
+      ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_AlwaysAutoResize;
+  ImGui::Begin("Exploits", NULL, window_flags);
   ImGui::Checkbox("Teleport All To Me",
                   &CheatBase::TeleportAllEntitiesToPlayer);
   ImGui::Checkbox("Unbreakable Lockpick",

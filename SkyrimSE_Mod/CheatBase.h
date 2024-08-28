@@ -1,7 +1,6 @@
 #pragma once
 #include "UnbreakableLockpick.h"
 #include "TGM.h"
-#include "SpeedHack.h"
 
 class CheatBase {
 public:
@@ -21,6 +20,5 @@ public:
   // Cheat Feature Classes
   static UnbreakableLockpickClass *UnbreakableLockpick;
   static TGMClass *TGM;
-  static SpeedHackClass *SpeedHack;
 
 };
