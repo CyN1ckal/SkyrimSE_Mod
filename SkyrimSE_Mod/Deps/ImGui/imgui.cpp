@@ -1148,7 +1148,7 @@ static bool             PlatformOpenInShellFn_DefaultImpl(ImGuiContext* ctx, con
 
 namespace ImGui
 {
-// Item
+// ItemClass
 static void             ItemHandleShortcut(ImGuiID id);
 
 // Navigation
@@ -4296,7 +4296,7 @@ bool ImGui::ItemHoverable(const ImRect& bb, ImGuiID id, ImGuiItemFlags item_flag
 #ifndef IMGUI_DISABLE_DEBUG_TOOLS
     if (id != 0)
     {
-        // [DEBUG] Item Picker tool!
+        // [DEBUG] ItemClass Picker tool!
         // We perform the check here because reaching is path is rare (1~ time a frame),
         // making the cost of this tool near-zero! We could get better call-stack and support picking non-hovered
         // items if we performed the test in ItemAdd(), but that would incur a bigger runtime cost.
@@ -14792,7 +14792,7 @@ void ImGui::ShowMetricsWindow(bool* p_open)
     if (TreeNode("Tools"))
     {
         // Debug Break features
-        // The Item Picker tool is super useful to visually select an item and break into the call-stack of where it was submitted.
+        // The ItemClass Picker tool is super useful to visually select an item and break into the call-stack of where it was submitted.
         SeparatorTextEx(0, "Debug breaks", NULL, CalcTextSize("(?)").x + g.Style.SeparatorTextPadding.x);
         SameLine();
         MetricsHelpMarker("Will call the IM_DEBUG_BREAK() macro to break in debugger.\nWarning: If you don't have a debugger attached, this will probably crash.");
@@ -16025,7 +16025,7 @@ void ImGui::DebugStartItemPicker()
     g.DebugItemPickerActive = true;
 }
 
-// [DEBUG] Item picker tool - start with DebugStartItemPicker() - useful to visually select an item and break into its call-stack.
+// [DEBUG] ItemClass picker tool - start with DebugStartItemPicker() - useful to visually select an item and break into its call-stack.
 void ImGui::UpdateDebugToolItemPicker()
 {
     ImGuiContext& g = *GImGui;

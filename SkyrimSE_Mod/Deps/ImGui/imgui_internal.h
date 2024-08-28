@@ -298,7 +298,7 @@ namespace ImStb
 #endif
 
 // Debug Tools
-// Use 'Metrics/Debugger->Tools->Item Picker' to break into the call-stack of a specific item.
+// Use 'Metrics/Debugger->Tools->ItemClass Picker' to break into the call-stack of a specific item.
 // This will call IM_DEBUG_BREAK() which you may redefine yourself. See https://github.com/scottt/debugbreak for more reference.
 #ifndef IM_DEBUG_BREAK
 #if defined (_MSC_VER)
@@ -887,11 +887,11 @@ enum ImGuiItemStatusFlags_
 
     // Additional status + semantic for ImGuiTestEngine
 #ifdef IMGUI_ENABLE_TEST_ENGINE
-    ImGuiItemStatusFlags_Openable           = 1 << 20,  // Item is an openable (e.g. TreeNode)
+    ImGuiItemStatusFlags_Openable           = 1 << 20,  // ItemClass is an openable (e.g. TreeNode)
     ImGuiItemStatusFlags_Opened             = 1 << 21,  // Opened status
-    ImGuiItemStatusFlags_Checkable          = 1 << 22,  // Item is a checkable (e.g. CheckBox, MenuItem)
+    ImGuiItemStatusFlags_Checkable          = 1 << 22,  // ItemClass is a checkable (e.g. CheckBox, MenuItem)
     ImGuiItemStatusFlags_Checked            = 1 << 23,  // Checked status
-    ImGuiItemStatusFlags_Inputable          = 1 << 24,  // Item is a text-inputable (e.g. InputText, SliderXXX, DragXXX)
+    ImGuiItemStatusFlags_Inputable          = 1 << 24,  // ItemClass is a text-inputable (e.g. InputText, SliderXXX, DragXXX)
 #endif
 };
 
@@ -2041,7 +2041,7 @@ struct ImGuiContext
     ImVec2                  WheelingWindowWheelRemainder;
     ImVec2                  WheelingAxisAvg;
 
-    // Item/widgets state and tracking information
+    // ItemClass/widgets state and tracking information
     ImGuiID                 DebugHookIdInfo;                    // Will call core hooks: DebugHookIdInfo() from GetID functions, used by ID Stack Tool [next HoveredId/ActiveId to not pull in an extra cache-line]
     ImGuiID                 HoveredId;                          // Hovered widget, filled during the frame
     ImGuiID                 HoveredIdPreviousFrame;
@@ -2313,7 +2313,7 @@ struct ImGuiContext
     bool                    DebugBreakInLocateId;               // Debug break in ItemAdd() call for g.DebugLocateId.
     ImGuiKeyChord           DebugBreakKeyChord;                 // = ImGuiKey_Pause
     ImS8                    DebugBeginReturnValueCullDepth;     // Cycle between 0..9 then wrap around.
-    bool                    DebugItemPickerActive;              // Item picker is active (started with DebugStartItemPicker())
+    bool                    DebugItemPickerActive;              // ItemClass picker is active (started with DebugStartItemPicker())
     ImU8                    DebugItemPickerMouseButton;
     ImGuiID                 DebugItemPickerBreakId;             // Will call IM_DEBUG_BREAK() when encountering this ID
     float                   DebugFlashStyleColorTime;

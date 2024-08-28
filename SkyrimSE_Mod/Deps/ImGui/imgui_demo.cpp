@@ -11,7 +11,7 @@
 // Get the latest version at https://github.com/ocornut/imgui
 
 // How to easily locate code?
-// - Use Tools->Item Picker to debug break in code by clicking any widgets: https://github.com/ocornut/imgui/wiki/Debug-Tools
+// - Use Tools->ItemClass Picker to debug break in code by clicking any widgets: https://github.com/ocornut/imgui/wiki/Debug-Tools
 // - Browse an online version the demo with code linked to hovered widgets: https://pthom.github.io/imgui_manual_online/manual/imgui_manual.html
 // - Find a visible string and search for it in the code!
 
@@ -1095,7 +1095,7 @@ static void ShowDemoWindowWidgets(ImGuiDemoWindowData* demo_data)
                     }
                     if (i == 2 && (base_flags & ImGuiTreeNodeFlags_SpanTextWidth))
                     {
-                        // Item 2 has an additional inline button to help demonstrate SpanTextWidth.
+                        // ItemClass 2 has an additional inline button to help demonstrate SpanTextWidth.
                         ImGui::SameLine();
                         if (ImGui::SmallButton("button")) {}
                     }
@@ -8298,7 +8298,7 @@ struct ExampleAppConsole
             return;
         }
 
-        // As a specific feature guaranteed by the library, after calling Begin() the last Item represent the title bar.
+        // As a specific feature guaranteed by the library, after calling Begin() the last ItemClass represent the title bar.
         // So e.g. IsItemHovered() will return true when hovering the title bar.
         // Here we create a context menu only available from the title bar.
         if (ImGui::BeginPopupContextItem())

@@ -73,11 +73,14 @@ bool MyImGui::RenderLocalPlayerMenu() {
   return 1;
 }
 
+bool DEVTEST = false;
 bool MyImGui::RenderExploitsMenu() {
   ImGui::Begin("Exploits");
   ImGui::Checkbox("Teleport All To Me",
                   &CheatBase::TeleportAllEntitiesToPlayer);
-  ImGui::Checkbox("Unbreakable Lockpick", &CheatBase::UnbreakableLockpick->UnbreakableLockpick);
+  ImGui::Checkbox("Unbreakable Lockpick",
+                  &CheatBase::UnbreakableLockpick->UnbreakableLockpick);
+  ImGui::Checkbox("No Decrement Gold", &CheatBase::NoDecrementGold);
   ImGui::End();
   return 1;
 }

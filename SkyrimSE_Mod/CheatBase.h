@@ -14,6 +14,7 @@ public:
 
   // ImGui Interface Variables
   static inline bool TeleportAllEntitiesToPlayer = false;
+  static inline bool NoDecrementGold = false;
 
 public:
   // Cheat Feature Classes

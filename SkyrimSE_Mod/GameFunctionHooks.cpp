@@ -33,6 +33,8 @@ bool GameFunctionHooks::Initialize() {
     return 0;
   }
 
+  UpdateInventoryFunctionAddress = CheatBase::SkyrimSEBaseAddress + 0x228180;
+
   return 1;
 }
 
@@ -44,6 +46,8 @@ bool GameFunctionHooks::EnableGameFunctionHooks() {
     Console::PrintError("EnableUpdateCharacterPositionHook");
     return 0;
   }
+
+  EnableUpdateInventoryHook();
 
   // EnablePrintToScreenHook();
 
@@ -98,6 +102,22 @@ bool GameFunctionHooks::EnablePrintToScreenHook() {
   return 1;
 }
 
+bool GameFunctionHooks::EnableUpdateInventoryHook() {
+  if (MH_CreateHook(
+          (void *)UpdateInventoryFunctionAddress, &UpdateInventory_Hooked,
+          reinterpret_cast<LPVOID *>(&UpdateInventory_Original)) != MH_OK) {
+    printf("MH_CreateHook UpdateInventoryFunctionAddress Error!\n");
+    return 0;
+  }
+
+  if (MH_EnableHook((void *)UpdateInventoryFunctionAddress) != MH_OK) {
+    printf("MH_EnableHook UpdateInventoryFunctionAddress Error!\n");
+    return 0;
+  }
+
+  return 1;
+}
+
 void __fastcall GameFunctionHooks::UpdateEntityPosition_Hooked(
     Entity *Entity, UpdateEntityPositionArg arg) {
   return ChangePlayerPosition_Original(Entity, arg);
@@ -122,4 +142,34 @@ __int64 __fastcall GameFunctionHooks::PrintToScreen_Hooked(BYTE *string,
   printf("Print To Screen Called!\n");
   printf("  String: %s ; a2: %d ; a3: %d\n", string, a2, a3);
   return PrintToScreen_Original(string, a2, a3);
+}
+
+enum DecrementType {
+  PlayerGoldReduction = 0x4,
+  Direct = 0x7ff60000000,
+  Merchant = 0x7ff600000002,
+  Dropped = 0x7ff600000003
+};
+
+DWORD *__fastcall GameFunctionHooks::UpdateInventory_Hooked(
+    uintptr_t *a1, DWORD *a2, __int64 a3, ItemClass *Item,
+    int AmountToDecrement, int DecrementReason, __int64 a7, __int64 a8,
+    __int64 a9, __int64 a10) {
+
+  // Console::PrintTime();
+  // printf(" - UpdateInventory_Hooked Called!\n");
+  // printf("  a1: %llx    a2: %llx    AmountToDecrement: %d    a3: %llx    a6:
+  // "
+  //        "%llx\n",
+  //        a1, a2, AmountToDecrement, a3, DecrementReason);
+  // printf("a7: %llx    a8: %llx    a9: %llx    a10: %llx\n", a7, a8, a9, a10);
+  // std::cout << *Item->pItemName << std::endl << std::endl;
+
+  if (CheatBase::NoDecrementGold &&
+      DecrementReason == DecrementType::PlayerGoldReduction) {
+    AmountToDecrement = 0;
+  }
+
+  return (UpdateInventory_Original(a1, a2, a3, Item, AmountToDecrement,
+                                   DecrementReason, a7, a8, a9, a10));
 }

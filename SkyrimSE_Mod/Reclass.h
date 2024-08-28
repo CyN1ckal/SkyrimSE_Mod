@@ -1,6 +1,5 @@
 #pragma once
 // Created with ReClass.NET 1.2 by KN4CK3R
-// Created with ReClass.NET 1.2 by KN4CK3R
 
 class Entity {
 public:
@@ -198,3 +197,46 @@ public:
   void *Call_1;      // 0x0068
   char pad_0070[24]; // 0x0070
 };                   // Size: 0x0088
+
+class TESCamera {
+public:
+  char pad_0000[320];     // 0x0000
+  float N000004F5;        // 0x0140
+  Vector3 CameraPosition; // 0x0144
+  char pad_0150[168];     // 0x0150
+};                        // Size: 0x01F8
+
+class WorldRootCameraNode {
+public:
+  char pad_0000[16];  // 0x0000
+  char (*pName)[32];  // 0x0010
+  char pad_0018[48];  // 0x0018
+  float Rotation1;    // 0x0048 -1 = -y  / 0 = -x
+  char pad_004C[12];  // 0x004C
+  float Rotation2;    // 0x0058
+  char pad_005C[12];  // 0x005C
+  float Rotation3;    // 0x0068
+  Vector3 Position;   // 0x006C
+  char pad_0078[456]; // 0x0078
+};                    // Size: 0x0240
+
+class MessageQueueBase {
+public:
+  char pad_0000[888]; // 0x0000
+  uint32_t N00000680; // 0x0378
+  char pad_037C[516]; // 0x037C
+};                    // Size: 0x0580
+
+class MessageType {
+public:
+  char pad_0000[384]; // 0x0000
+};                    // Size: 0x0180
+
+class ItemClass {
+public:
+  char pad_0000[56];      // 0x0000
+  char (*pItemName)[64];  // 0x0038
+  char pad_0040[8];       // 0x0040
+  char (*pModelName)[64]; // 0x0048
+  char pad_0050[216];     // 0x0050
+};                        // Size: 0x0128
